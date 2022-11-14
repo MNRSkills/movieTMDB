@@ -5,9 +5,7 @@ const popularRouter = require("express").Router();
 popularRouter.get("/movies", async (req, res) => {
   try {
     await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/550?api_key=${process.env.TMDB_API_KEY}`
-      )
+      .get(`/movie/550?api_key=${process.env.TMDB_API_KEY}`)
       .then(function (response) {
         res.json(response.data);
       })
@@ -22,14 +20,14 @@ popularRouter.get("/movies", async (req, res) => {
 popularRouter.get("/popular", async (req, res) => {
   try {
     await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}`
-      )
+      .get(`/movie/popular?api_key=${process.env.TMDB_API_KEY}`)
       .then((response) => {
         res.json(response.data);
       });
   } catch (error) {
-    err: "There is an error", error;
+    res.status(400).json({
+      Error: error,
+    });
   }
 });
 
