@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 7900;
 
 const popularRouter = require("./routes/popular");
 const searchRouter = require("./routes/search");
+const topRatedRouter = require("./routes/top_rated");
 
 app.use(cors());
 app.use(express.json());
@@ -16,6 +17,7 @@ axios.defaults.baseURL = "https://api.themoviedb.org/3";
 
 app.use("/", popularRouter);
 app.use("/", searchRouter);
+app.use("/", topRatedRouter);
 app.listen(PORT, () => {
   console.log(`Server is listening on port: ${PORT}`);
 });

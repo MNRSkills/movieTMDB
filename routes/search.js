@@ -10,7 +10,7 @@ search.get("/search/:query", async (req, res) => {
         `/search/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&query=${req.params.query}&page=1&include_adult=false`
       )
       .then((response) => {
-        console.log("THIS IS THE QUERY", response.data);
+        // console.log("THIS IS THE QUERY", response.data);
         res.json(response.data);
       });
   } catch (error) {
