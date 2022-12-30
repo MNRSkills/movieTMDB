@@ -2,7 +2,7 @@
 
 ## MOVIES BY POPULAR DEMAND
 
-- connecting the api with axios for sec key purpose
+- connecting the api with axios for security purpose
 - Get movies by popularity and images you can see what
 
 ## SEARCHBAR
@@ -15,3 +15,7 @@
 
 - Will hold the pages In Theaters, Popular, Most Rated,
 - Check for single page rendering
+
+# POSTGRESQL SERVER
+
+- Connecting the api with a postgres database that will hold users info and bucket if you will of movies and shows they would like to list. 
