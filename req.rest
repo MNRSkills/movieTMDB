@@ -3,7 +3,17 @@ Content-Type: application/json
 
 
 {
-    "name": "bob",
-    "email": "bob@gmial.com",
-    "password": "bobby"
+    "name": "Tim",
+    "email": "Tim@gmial.com",
+    "password": "Timmy"
+}
+
+##
+
+POST http://localhost:4000/db/login
+Content-Type: application/json
+
+{
+    "email": "Tim@gmial.com", 
+    "password": "Timmy"
 }

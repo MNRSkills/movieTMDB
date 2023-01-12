@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const bodyParser = require("body-parser");
 
 require("dotenv").config();
 const app = express();
@@ -17,7 +18,7 @@ const showRouter = require("./routes/shows");
 const pgRouter = require("./routes/pg/users");
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
 //DEFAULT URL FOR TMDB
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
