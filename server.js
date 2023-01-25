@@ -16,6 +16,8 @@ const newMovieRouter = require("./routes/newMovie");
 const showRouter = require("./routes/shows");
 // const db = require("./routes/pg/db");
 const pgRouter = require("./routes/pg/users");
+const listRouter = require("./routes/pg/favList");
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -33,6 +35,7 @@ app.use("/", showRouter);
 //DB QUERY START HERE
 // app.get("/login", db.getUsers)
 app.use("/db", pgRouter);
+app.use("/db", listRouter);
 
 
 

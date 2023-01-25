@@ -38,7 +38,7 @@ pgRouter.post("/login", async (req, res) => {
       `SELECT * FROM users WHERE users_email = $1`,
       [email]
     );
-    console.log("USEREEE", users.rows[0]);
+    // console.log("USEREEE", users.rows[0]);
     if (users.rows.length === 0)
       return res.status(401).json({ errorMSG: "Please Enter Email" });
     // return res.send("THIS IS WORING ")
@@ -47,7 +47,7 @@ pgRouter.post("/login", async (req, res) => {
       password,
       users.rows[0].users_password
     );
-    console.log("COMPARE PW", comparePW);
+    // console.log("COMPARE PW", comparePW);
     if (!comparePW)
       return res.status(401).json({ errMSG: "Icorrect Password" });
     var tokens = jwtTokens(users.rows[0]);
