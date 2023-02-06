@@ -5,7 +5,7 @@ const jwtTokens = require("../../util/jwt-helper");
 
 pgRouter.get("/roster", async (req, res) => {
   try {
-    const users = await newPool.query("SELECT * FROM users");
+    const users = await newPool.query("SELECT * FROM persons");
     res.json({ users: users.rows });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -13,17 +13,20 @@ pgRouter.get("/roster", async (req, res) => {
 });
 
 pgRouter.post("/sign-up", async (req, res) => {
+  console.log("looking for body", req.body);
   try {
     const { name, email, password } = req.body;
 
     const hashPW = await bcrypt.hash(password, 10);
-    const newUser = newPool.query(
-      `INSERT INTO users
-        (users_name,users_email,users_password)
+    console.log("BYCRPT", hashPW);
+    const newUsers = await newPool.query(
+      `INSERT INTO persons
+        (persons_name,persons_email,persons_password)
         VALUES ($1,$2,$3) RETURNING *`,
       [name, email, hashPW]
     );
-    res.json({ newUsers: ["New User Created", newUser.rows[0]] });
+    console.log("NEWE USER", newUsers);
+    res.json({ newUsers: ["New User Created", newUsers.rows[0]] });
   } catch (error) {}
 });
 
@@ -35,19 +38,17 @@ pgRouter.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const users = await newPool.query(
-      `SELECT * FROM users WHERE users_email = $1`,
+      `SELECT * FROM persons WHERE persons_email = $1 `,
       [email]
     );
-    // console.log("USEREEE", users.rows[0]);
     if (users.rows.length === 0)
       return res.status(401).json({ errorMSG: "Please Enter Email" });
     // return res.send("THIS IS WORING ")
 
     const comparePW = await bcrypt.compare(
       password,
-      users.rows[0].users_password
+      users.rows[0].persons_password
     );
-    // console.log("COMPARE PW", comparePW);
     if (!comparePW)
       return res.status(401).json({ errMSG: "Icorrect Password" });
     var tokens = jwtTokens(users.rows[0]);

@@ -18,4 +18,13 @@
 
 # POSTGRESQL SERVER
 
-- Connecting the api with a postgres database that will hold users info and bucket if you will of movies and shows they would like to list. 
+- Connecting the api with a postgres database that will hold users info and bucket if you will of movies and shows they would like to list.
+
+# ROUTES
+
+- Login route with a my_fav_list route authenticating with JWT 
+- Learning authentication and storing of the tokens in this process 
+- Storing the Movie ID I will call the TMDB API with users login creds and have a list of their favorite movies with details of the steaming services. 
+
+
+# 

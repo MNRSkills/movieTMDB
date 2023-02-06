@@ -1,11 +1,11 @@
-CREATE TABLE users (
+CREATE TABLE persons (
     ID SERIAL PRIMARY KEY,
-    users_name VARCHAR(50),
-    users_email VARCHAR(250) UNIQUE,
-    users_password VARCHAR(250)
+    persons_name VARCHAR(50),
+    persons_email VARCHAR(250),
+    persons_password VARCHAR(250)
 );
 
-INSERT INTO users (users_name,users_email,users_password) VALUES ('Mack R', 'mackrmrz@gmail.com', 'password' );
+INSERT INTO persons (persons_name,persons_email,persons_password) VALUES ('Tony Start', 'Start@stark.com', 'passwordyysys' );
 
 
 CREATE TABLE fav_list (
@@ -14,3 +14,5 @@ CREATE TABLE fav_list (
 )
 
 INSERT INTO fav_list (movie_id) VALUES ( 724089 );
+
+UPDATE fav_list SET id = 1;
