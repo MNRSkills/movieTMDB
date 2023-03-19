@@ -6,7 +6,7 @@ topRatedRouter.get("/top_rated", async (req, res) => {
     await axios
       .get(`/movie/top_rated?api_key=${process.env.TMDB_API_KEY}`)
       .then(function (response) {
-        console.log("THIS IS FROM TOPRATED");
+        // console.log("THIS IS FROM TOPRATED");
         res.json(response.data);
       })
       .catch(function (error) {

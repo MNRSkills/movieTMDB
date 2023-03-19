@@ -6,13 +6,12 @@ const listRouter = require("express").Router();
 // THIS ROUTE NEEDS TO BE PROTECTED.
 
 //ADDING TO THE MOVIE LIST
-listRouter.post("/adding-to-list/:id", async (req, res) => {
+listRouter.post("/adding-to-list/:id", auth, async (req, res) => {
   try {
-    const { id } = req.params;
-
+    const { movie_id, persons_id } = req.body;
     const adding_id = await newPool.query(
-      `INSERT INTO fav_list (movie_id) VALUES ($1) RETURNING *`,
-      [id]
+      `INSERT INTO fav_list (movie_id, persons_id) VALUES ($1,$2) RETURNING *`,
+      [movie_id, persons_id]
     );
     res.json({ adding_id: ["Movie ID Added", adding_id.rows[0]] });
   } catch (error) {
@@ -24,7 +23,7 @@ listRouter.post("/adding-to-list/:id", async (req, res) => {
 });
 
 //GETTING ALL MOVIE LIST
-listRouter.get("/fav-list", async (req, res) => {
+listRouter.get("/fav-list", auth, async (req, res) => {
   try {
     const favoriteList = await newPool.query("SELECT * FROM fav_list");
     res.json({ list: favoriteList.rows });
@@ -34,7 +33,7 @@ listRouter.get("/fav-list", async (req, res) => {
 });
 
 //EDITING MOVIE LIST
-listRouter.put("/edit-list/:id", async (req, res) => {
+listRouter.put("/edit-list/:id", auth, async (req, res) => {
   try {
     const id = await parseInt(req.params.id);
     const updateMovie = req.body.movie_id;
@@ -49,8 +48,20 @@ listRouter.put("/edit-list/:id", async (req, res) => {
 });
 
 //DELETING THE MOVIE LIST
-listRouter.delete("/delete-movie/:id", async (req, res) => {
-  res.send("THIS IS THE DELETE ROUTE");
+listRouter.delete("/delete-movie/:id", auth, async (req, res) => {
+  try {
+    const id = await parseInt(req.params.id);
+    const delMovie = await newPool.query(`DELETE FROM fav_list WHERE id = $1`, [
+      id,
+    ]);
+    res.status(200).json({
+      deletedMsg: "Your item has been deleted",
+    });
+  } catch (error) {
+    res.status(401).json({
+      errorMsg: `${error}`,
+    });
+  }
 });
 
 module.exports = listRouter;
